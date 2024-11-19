@@ -6,6 +6,15 @@
 #include <sstream>
 #include <vector>
 
+/*
+	****************************************
+	TODO:
+		find a way to populate points faster 
+		fix the problem of 2 outlier points 
+
+	****************************************
+*/
+
 //Make the code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
@@ -20,18 +29,19 @@ int main()
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
 
-	Text text, vertex;
 	Font font;
 	font.loadFromFile("fonts/KIN668.ttf");
 
-	text.setFont(font); 
-	text.setString("Welcome to Chaos Game!! \nClick Anywhere to Start.");
+	//intro text
+	Text text;
+	text.setFont(font);
+	text.setString("Welcome to Chaos Game!! \nClick Anywhere to Start.\n\nTo form a Sierpinski Triangle, \nclick 3 times anywhere to form \nthe trianlge and another time to \nstart generating a Sierpinski form.");
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::White);
-	text.setPosition(959, 539);
-	vertex.setFont(font);
+	text.setPosition(150, 150);
+	text.setFont(font);
 
-	//records mouse clicks CV
+	//records mouse clicks 
 	int ClickCounter = 0;
 
 
@@ -50,6 +60,7 @@ int main()
 				// Quit the game when the window is closed
 				window.close();
 			}
+			//Reads Mouse input
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
@@ -87,15 +98,14 @@ int main()
 
 		if (points.size() > 0)
 		{
+			//code of populating the triangle to form the Sierpinski look 
 			int random = rand() % 3, random2 = 0;
 			float newx = 0, newy = 0;
 			cout << "ChosenPoint.x is " << vertices[random].x << " ChosenPoint.y is " << vertices[random].y << endl;
-			newx = (((vertices[random].x - points.back().x) / 2) + points.back().x); //needs fixing
-			newy = (((vertices[random].y - points.back().y) / 2) + points.back().y); //needs fixing
+			newx = (((vertices[random].x - points.back().x) / 2) + points.back().x); 
+			newy = (((vertices[random].y - points.back().y) / 2) + points.back().y); 
 			cout << "New verticie is " << newx << " " << newy << endl;
 			points.push_back(Vector2f(newx, newy));
-
-
 
 			///generate more point(s)
 			///select random vertex
@@ -109,11 +119,20 @@ int main()
 		****************************************
 		*/
 		window.clear();
-
-		if (ClickCounter == 0)
+		
+		//intro text
+		if (ClickCounter < 3)
 		{
 			window.draw(text);
 		}
+
+		if (ClickCounter == 3)
+		{
+			text.setString("Click again to start \nforming the Sierpinski Triangle");
+			text.setPosition(150, 150);
+			window.draw(text);
+		}
+		//Draws the starting vertices
 		for (int i = 0; i < vertices.size(); i++)
 		{
 			RectangleShape rect(Vector2f(10, 10));
@@ -121,27 +140,9 @@ int main()
 			rect.setFillColor(Color::Blue);
 			window.draw(rect);
 
-			window.draw(vertex);
-			stringstream stream;
-			stream << "(";
-			stream << std::fixed << std::setprecision(0) << vertices[i].x;
-			stream << " , ";
-			stream << std::fixed << std::setprecision(0) << vertices[i].y;
-			stream << ")";
-			string test = stream.str();
-			vertex. setString(test);
-			vertex.setCharacterSize(24);
-			vertex.setFillColor(sf::Color::White);
-			vertex.setPosition(vertices[i].x + 15 , vertices[i].y - 30);
-			
-			if (points.size() > 0) 
-			{
-				rect.setPosition(Vector2f(points[0].x, points[0].y));
-				rect.setFillColor(Color::White);
-				window.draw(rect);
-			}
 
 		}
+		//Draws the popluated points for Sierpinski Triangle
 		for (int i = 1; i < points.size(); i++)
 		{
 			RectangleShape rect2(Vector2f(10, 10));
