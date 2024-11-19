@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <vector>
 
@@ -23,22 +24,15 @@ int main()
 	Font font;
 	font.loadFromFile("fonts/KIN668.ttf");
 
-	// select the font
-	text.setFont(font); // font is a sf::Font
-	// set the string to display
+	text.setFont(font); 
 	text.setString("Welcome to Chaos Game!! \nClick Anywhere to Start.");
-	// set the character size
-	text.setCharacterSize(24); // in pixels, not points!
-	// set the color
+	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::White);
-	// set the text style
-	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-	text.setPosition(951, 574);
+	text.setPosition(959, 539);
+	vertex.setFont(font);
 
-	vertex.setFont(font); // font is a sf::Font
-
-	//records mouse presses CV
-	int MouseCounter = 0;
+	//records mouse clicks CV
+	int ClickCounter = 0;
 
 
 	while (window.isOpen())
@@ -63,7 +57,9 @@ int main()
 					std::cout << "the left button was pressed" << std::endl;
 					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
 					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-
+					ClickCounter++;
+					std::cout << ClickCounter << std::endl;
+					
 					if (vertices.size() < 3)
 					{
 						vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
@@ -72,6 +68,7 @@ int main()
 					{
 						///fourth click
 						///push back to points vector
+						points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
 					}
 				}
 			}
@@ -82,10 +79,6 @@ int main()
 			window.close();
 		}
 
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			MouseCounter++;
-		}
 		/*
 		****************************************
 		Update
@@ -94,6 +87,16 @@ int main()
 
 		if (points.size() > 0)
 		{
+			int random = rand() % 3, random2 = 0;
+			float newx = 0, newy = 0;
+			cout << "ChosenPoint.x is " << vertices[random].x << " ChosenPoint.y is " << vertices[random].y << endl;
+			newx = (((vertices[random].x - points.back().x) / 2) + points.back().x); //needs fixing
+			newy = (((vertices[random].y - points.back().y) / 2) + points.back().y); //needs fixing
+			cout << "New verticie is " << newx << " " << newy << endl;
+			points.push_back(Vector2f(newx, newy));
+
+
+
 			///generate more point(s)
 			///select random vertex
 			///calculate midpoint between random vertex and the last point in the vector
@@ -107,8 +110,7 @@ int main()
 		*/
 		window.clear();
 
-		// inside the main loop, between window.clear() and window.display()
-		if (MouseCounter == 0)
+		if (ClickCounter == 0)
 		{
 			window.draw(text);
 		}
@@ -119,18 +121,36 @@ int main()
 			rect.setFillColor(Color::Blue);
 			window.draw(rect);
 
-			string points = "2";
-
 			window.draw(vertex);
-			vertex.setString(points);
-			// set the character size
-			vertex.setCharacterSize(24); // in pixels, not points!
-			// set the color
+			stringstream stream;
+			stream << "(";
+			stream << std::fixed << std::setprecision(0) << vertices[i].x;
+			stream << " , ";
+			stream << std::fixed << std::setprecision(0) << vertices[i].y;
+			stream << ")";
+			string test = stream.str();
+			vertex. setString(test);
+			vertex.setCharacterSize(24);
 			vertex.setFillColor(sf::Color::White);
-			// set the text style
-			//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-			vertex.setPosition(vertices[i].x, vertices[i].y);
+			vertex.setPosition(vertices[i].x + 15 , vertices[i].y - 30);
+			
+			if (points.size() > 0) 
+			{
+				rect.setPosition(Vector2f(points[0].x, points[0].y));
+				rect.setFillColor(Color::White);
+				window.draw(rect);
+			}
+
 		}
+		for (int i = 1; i < points.size(); i++)
+		{
+			RectangleShape rect2(Vector2f(10, 10));
+			rect2.setPosition(Vector2f(points[i].x, points[i].y));
+			rect2.setFillColor(Color::Red);
+			window.draw(rect2);
+		}
+
+
 		window.display();
 	}
 }
