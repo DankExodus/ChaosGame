@@ -55,9 +55,9 @@ int main()
 	vector<Vector2f> points;
 
 	Font font;
-	if (!font.loadFromFile("fonts/KIN668.ttf");)
+	if (!font.loadFromFile("fonts/KIN668.TTF")) 
 	{
-		return -1;
+		return 1;
 	}
 
 	//Instruction text
@@ -180,7 +180,7 @@ int main()
 			}
 		}
 		
-		//middle triangle
+		//Middle triangle
 		for (int i = 5; i < points.size(); i++)
 		{
 			rect.setPosition(Vector2f(points[i].x, points[i].y));
@@ -196,14 +196,14 @@ int main()
 			window.draw(rect);
 		}
 
-		//bottom triangle
+		//Bottom triangle
 		for (int i = 5; i < points.size(); i++)
 		{
 			rect.setPosition(Vector2f(points[i].x, points[i].y + heightCalc(vertices)));
 			//rect.setFillColor(Color::Green);
 			if (i % 15 == 0)
 			{
-				rect.setFillColor(Color::Yellow);
+				rect.setFillColor(Color::Magenta);
 			}
 			else
 			{
@@ -212,7 +212,7 @@ int main()
 			window.draw(rect);
 		}
 
-		//top triangle
+		//Top triangle
 		for (int i = 5; i < points.size(); i++)
 		{
 			rect.setPosition(Vector2f(points[i].x, points[i].y - heightCalc(vertices)));
@@ -259,7 +259,6 @@ int main()
 			{
 				peak = vertices[2];
 			}
-
 			spriteStar.setOrigin(peak);
 			spriteStar.setPosition(peak.x + 30, (peak.y - heightCalc(vertices)) - 20);
 			window.draw(spriteStar);
