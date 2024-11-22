@@ -55,7 +55,10 @@ int main()
 	vector<Vector2f> points;
 
 	Font font;
-	font.loadFromFile("fonts/KIN668.ttf");
+	if (!font.loadFromFile("fonts/KIN668.ttf");)
+	{
+		return -1;
+	}
 
 	//Instruction text
 	Text text;
