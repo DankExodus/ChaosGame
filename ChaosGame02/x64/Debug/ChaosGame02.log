@@ -1,0 +1,27 @@
+﻿  ChaosGame02.cpp
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(18,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(19,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(20,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(22,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(73,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(113,73): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(113,52): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(119,71): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\danke\source\repos\ChaosGame02\ChaosGame02.cpp(119,50): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  ChaosGame02.vcxproj -> C:\Users\danke\source\repos\ChaosGame02\x64\Debug\ChaosGame02.exe
